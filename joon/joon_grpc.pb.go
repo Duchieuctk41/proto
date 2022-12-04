@@ -18,86 +18,86 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// JoonServiceClient is the client API for JoonService service.
+// JoonClient is the client API for Joon service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type JoonServiceClient interface {
+type JoonClient interface {
 	HasRole(ctx context.Context, in *HasRoleReq, opts ...grpc.CallOption) (*HasRoleRes, error)
 }
 
-type joonServiceClient struct {
+type joonClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewJoonServiceClient(cc grpc.ClientConnInterface) JoonServiceClient {
-	return &joonServiceClient{cc}
+func NewJoonClient(cc grpc.ClientConnInterface) JoonClient {
+	return &joonClient{cc}
 }
 
-func (c *joonServiceClient) HasRole(ctx context.Context, in *HasRoleReq, opts ...grpc.CallOption) (*HasRoleRes, error) {
+func (c *joonClient) HasRole(ctx context.Context, in *HasRoleReq, opts ...grpc.CallOption) (*HasRoleRes, error) {
 	out := new(HasRoleRes)
-	err := c.cc.Invoke(ctx, "/joon.JoonService/HasRole", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/joon.Joon/HasRole", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// JoonServiceServer is the server API for JoonService service.
-// All implementations must embed UnimplementedJoonServiceServer
+// JoonServer is the server API for Joon service.
+// All implementations must embed UnimplementedJoonServer
 // for forward compatibility
-type JoonServiceServer interface {
+type JoonServer interface {
 	HasRole(context.Context, *HasRoleReq) (*HasRoleRes, error)
-	mustEmbedUnimplementedJoonServiceServer()
+	mustEmbedUnimplementedJoonServer()
 }
 
-// UnimplementedJoonServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedJoonServiceServer struct {
+// UnimplementedJoonServer must be embedded to have forward compatible implementations.
+type UnimplementedJoonServer struct {
 }
 
-func (UnimplementedJoonServiceServer) HasRole(context.Context, *HasRoleReq) (*HasRoleRes, error) {
+func (UnimplementedJoonServer) HasRole(context.Context, *HasRoleReq) (*HasRoleRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method HasRole not implemented")
 }
-func (UnimplementedJoonServiceServer) mustEmbedUnimplementedJoonServiceServer() {}
+func (UnimplementedJoonServer) mustEmbedUnimplementedJoonServer() {}
 
-// UnsafeJoonServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to JoonServiceServer will
+// UnsafeJoonServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to JoonServer will
 // result in compilation errors.
-type UnsafeJoonServiceServer interface {
-	mustEmbedUnimplementedJoonServiceServer()
+type UnsafeJoonServer interface {
+	mustEmbedUnimplementedJoonServer()
 }
 
-func RegisterJoonServiceServer(s grpc.ServiceRegistrar, srv JoonServiceServer) {
-	s.RegisterService(&JoonService_ServiceDesc, srv)
+func RegisterJoonServer(s grpc.ServiceRegistrar, srv JoonServer) {
+	s.RegisterService(&Joon_ServiceDesc, srv)
 }
 
-func _JoonService_HasRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Joon_HasRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(HasRoleReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(JoonServiceServer).HasRole(ctx, in)
+		return srv.(JoonServer).HasRole(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/joon.JoonService/HasRole",
+		FullMethod: "/joon.Joon/HasRole",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(JoonServiceServer).HasRole(ctx, req.(*HasRoleReq))
+		return srv.(JoonServer).HasRole(ctx, req.(*HasRoleReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// JoonService_ServiceDesc is the grpc.ServiceDesc for JoonService service.
+// Joon_ServiceDesc is the grpc.ServiceDesc for Joon service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var JoonService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "joon.JoonService",
-	HandlerType: (*JoonServiceServer)(nil),
+var Joon_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "joon.Joon",
+	HandlerType: (*JoonServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "HasRole",
-			Handler:    _JoonService_HasRole_Handler,
+			Handler:    _Joon_HasRole_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
