@@ -12,6 +12,6 @@ message HasRoleRes {
   bool hasRole = 1;
 }
 
-service JoonService {
+service Joon {
   rpc HasRole(HasRoleReq) returns (HasRoleRes);
 }
