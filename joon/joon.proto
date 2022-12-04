@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package joon ;
+option go_package = "/joon" ;
+
+message HasRoleReq {
+  string userId = 1;
+  uint32 role = 2;
+}
+
+message HasRoleRes {
+  bool hasRole = 1;
+}
+
+service JoonService {
+  rpc HasRole(HasRoleReq) returns (HasRoleRes);
+}
